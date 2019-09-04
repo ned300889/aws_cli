@@ -14,9 +14,12 @@ sort unattached.log | uniq > result.log
 
 aws ec2 describe-instances --output text | grep sg- | awk '{print $2}' > attached_security_groups.log 
 
-awk 'FNR==NR {a[$0]++; next} !a[$0]' attached_security_groups.log result.log > final.log
+awk 'FNR==NR {a[$0]++; next} !a[$0]' attached_security_groups.log result.log | sort | uniq > final.log
 
-
-nl final.log
+while IFS="" read -r p || [ -n "$p" ]
+do
+	echo "Results for $p";
+	aws ec2 describe-security-groups --group-ids $p | grep CidrIp
+  done < final.log
 
 rm *.log 
