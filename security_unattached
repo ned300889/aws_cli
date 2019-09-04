@@ -19,7 +19,7 @@ awk 'FNR==NR {a[$0]++; next} !a[$0]' attached_security_groups.log result.log | s
 while IFS="" read -r p || [ -n "$p" ]
 do
 	echo "Results for $p";
-	aws ec2 describe-security-groups --group-ids $p | grep CidrIp
+	aws ec2 describe-security-groups --group-ids $p | jq  '.SecurityGroups[].IpPermissions' 
   done < final.log
 
 rm *.log 
