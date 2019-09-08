@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for i in {1..5} 
+	do 
+		aws ec2 delete-security-group --group-id sg-0ab8cc8bfb8f2c798 
+	done

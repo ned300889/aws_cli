@@ -1,0 +1,6 @@
+#!/bin/bash
+
+while IFS="" read -r p || [ -n "$p" ]
+do
+	aws ec2 describe-security-groups --group-id $p
+done < final.txt

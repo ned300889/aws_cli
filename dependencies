@@ -1,0 +1,7 @@
+#!/bin/bash
+
+while IFS="" read -r p || [ -n "$p" ]                                                                
+do                                                                                    
+	aws ec2 describe-network-interfaces --filters Name=group-id,Values=$p
+done < final.txt                                                                                   
+
